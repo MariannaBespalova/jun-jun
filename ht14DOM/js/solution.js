@@ -1,6 +1,16 @@
-const listElements = document.querySelectorAll("li");
+const listItems = document.body.children[0].children;
 
-console.log(listElements.length);
+let arrOfInnerText = [];
+
+for (const item of listItems) {
+  arrOfInnerText.push(item.innerText);
+}
+
+console.log(arrOfInnerText);
+
+
+
+const listElements = document.querySelectorAll("li");
 
 let arrOfText = []
 
