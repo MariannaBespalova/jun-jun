@@ -2,6 +2,6 @@
 
 const arr8 = [1, 2, 3, 4, 5]
 
-const newArr8 = arr8.concat([4, 5]);
+const newArr8 = arr8.slice(3)
 
 console.log(newArr8);

@@ -2,7 +2,7 @@
 
 const arr7 = [1, 2, 3, 4, 5];
 
-const newArr7 = arr7.concat([1, 2, 3]);
+const newArr7 = arr7.slice(0, 3);
 
-console.log(newArr7);
+console.log("task7", newArr7);
 
