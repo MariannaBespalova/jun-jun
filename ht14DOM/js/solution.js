@@ -10,7 +10,10 @@ console.log(arrOfInnerText);
 
 
 
+
 const listElements = document.querySelectorAll("li");
+
+console.log(listElements.length);
 
 let arrOfText = []
 
