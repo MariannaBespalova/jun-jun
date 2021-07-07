@@ -1,5 +1,6 @@
 const template = createEmptyTemplate();
 
+
 document.getElementById('todoForm')
   .addEventListener('submit', function (e) {
     e.preventDefault();
@@ -16,6 +17,16 @@ document.getElementById('todoForm')
 
     saveItem(todoItem);
     renderItem(todoItem);
+
+    const todos = document.querySelectorAll('.todo-item');
+    if (todos.length === 1 ) {
+      const button = document.createElement("button");
+      button.classList.add("delete-all-todo", "btn", "btn-danger");
+      button.innerText = "Delete all todos";
+      document.querySelector(".todos-wrap").append(button);
+
+    }
+
     e.target.reset();
   })
 
@@ -51,22 +62,52 @@ document.addEventListener("click", e => {
     localStorage.setItem("todos", JSON.stringify(arrOfTodos));
     e.target.parentNode.parentNode.remove();
 
+    const todos = document.querySelectorAll(".todo-item");
+
+    if(todos.length === 0) {
+      const button = document.querySelector(".delete-all-todo");
+      if(button) {
+        button.remove();
+      }
+    }
+  }
+
+  if (e.target.matches(".delete-all-todo")) {
+    const todos = document.querySelectorAll(".todo-item");
+    todos.forEach(item => item.remove());
+
+    localStorage.clear();
+
+    document.querySelector('.delete-all-todo').remove()
   }
 })
 
 window.addEventListener('load', function (e) {
-  if (!localStorage.todos) return;
+  if (!localStorage.todos) return; 
 
   const todos = JSON.parse(localStorage.getItem('todos'));
   todos.forEach(function (item) {
-    renderItem(item)
+    renderItem(item);
   });
+
+  if (todos.length === 0) {
+    console.log("kdsjf")
+    const button = document.querySelector(".delete-all-todo");
+    console.log(button)
+    if (button) {
+      button.remove();
+    }
+  } else if(todos.length > 0) {
+    const buttonDeleteAll = document.createElement("button");
+    buttonDeleteAll.classList.add("delete-all-todo", "btn", "btn-danger");
+    buttonDeleteAll.innerText = "Delete all todos";
+    document.querySelector(".todos-wrap").append(buttonDeleteAll);
+  }
 
 })
 
 
 function saveItem(todoItem) {
-
   if (localStorage.todos) {
     let todosArray = JSON.parse(localStorage.todos);
     todosArray.push(todoItem);
@@ -126,7 +167,6 @@ function createEmptyTemplate() {
   taskWrapper.append(taskHeading);
   taskWrapper.append(taskDescription);
   taskWrapper.append(inputWrap);
-
 
   return col;
 }
